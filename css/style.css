@@ -1,0 +1,242 @@
+/* ===== 기본 설정 ===== */
+:root {
+  --clay: #c8643b;
+  --clay-dark: #a14c29;
+  --cream: #faf5ee;
+  --sand: #f1e7d8;
+  --ink: #2b2420;
+  --muted: #6f625a;
+  --line: #e2d6c5;
+  --sage: #7d9a7a;
+  --gold: #d9a441;
+  --radius: 16px;
+  --header-h: 64px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; scroll-padding-top: var(--header-h); }
+
+body {
+  font-family: "Noto Sans KR", system-ui, sans-serif;
+  color: var(--ink);
+  background: var(--cream);
+  line-height: 1.7;
+  word-break: keep-all;
+}
+
+a { color: inherit; text-decoration: none; }
+ul, ol { list-style: none; }
+
+.container { width: min(1120px, 100% - 32px); margin-inline: auto; }
+
+/* ===== 헤더 ===== */
+.header {
+  position: fixed; inset: 0 0 auto; z-index: 100;
+  height: var(--header-h);
+  background: rgba(250, 245, 238, .9);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid transparent;
+  transition: border-color .3s, box-shadow .3s;
+}
+.header.is-scrolled { border-color: var(--line); box-shadow: 0 2px 12px rgba(0,0,0,.04); }
+.header__inner { height: 100%; display: flex; align-items: center; justify-content: space-between; }
+
+.logo {
+  font-family: "Gowun Batang", serif;
+  font-size: 1.4rem; font-weight: 700; color: var(--clay);
+}
+.logo span { margin-left: 6px; font-family: "Noto Sans KR", sans-serif; font-size: .8rem; font-weight: 500; color: var(--muted); }
+
+.nav { display: flex; gap: 28px; font-size: .95rem; font-weight: 500; }
+.nav a { position: relative; padding: 4px 0; }
+.nav a::after {
+  content: ""; position: absolute; left: 0; bottom: 0;
+  width: 0; height: 2px; background: var(--clay); transition: width .25s;
+}
+.nav a:hover::after, .nav a.is-active::after { width: 100%; }
+
+.nav-toggle { display: none; background: none; border: 0; cursor: pointer; width: 32px; height: 32px; position: relative; }
+.nav-toggle span { position: absolute; left: 4px; right: 4px; height: 2px; background: var(--ink); transition: transform .3s, opacity .3s; }
+.nav-toggle span:nth-child(1) { top: 9px; }
+.nav-toggle span:nth-child(2) { top: 15px; }
+.nav-toggle span:nth-child(3) { top: 21px; }
+.nav-toggle.is-open span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+.nav-toggle.is-open span:nth-child(2) { opacity: 0; }
+.nav-toggle.is-open span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+
+/* ===== 버튼 ===== */
+.btn {
+  display: inline-block; padding: 14px 28px; border-radius: 999px;
+  font-weight: 700; transition: background .2s, color .2s, transform .2s;
+}
+.btn:hover { transform: translateY(-2px); }
+.btn--primary { background: var(--clay); color: #fff; }
+.btn--primary:hover { background: var(--clay-dark); }
+.btn--ghost { border: 2px solid var(--ink); }
+.btn--ghost:hover { background: var(--ink); color: var(--cream); }
+
+/* ===== 히어로 ===== */
+.hero {
+  min-height: 100vh; display: flex; align-items: center;
+  padding-top: var(--header-h);
+  background:
+    radial-gradient(circle at 85% 20%, rgba(200,100,59,.18), transparent 40%),
+    radial-gradient(circle at 10% 85%, rgba(125,154,122,.2), transparent 40%),
+    var(--cream);
+}
+.hero__eyebrow { color: var(--clay); font-weight: 700; margin-bottom: 16px; }
+.hero__title {
+  font-family: "Gowun Batang", serif;
+  font-size: clamp(2.2rem, 6vw, 4rem); line-height: 1.3; margin-bottom: 24px;
+}
+.hero__desc { color: var(--muted); font-size: 1.1rem; margin-bottom: 40px; }
+.hero__actions { display: flex; gap: 12px; flex-wrap: wrap; }
+
+/* ===== 섹션 공통 ===== */
+.section { padding: 110px 0; }
+.section--tint { background: var(--sand); }
+.section--dark { background: var(--ink); color: var(--cream); }
+.section__label { color: var(--clay); font-weight: 700; font-size: .9rem; letter-spacing: .08em; text-transform: uppercase; margin-bottom: 8px; }
+.section__title { font-family: "Gowun Batang", serif; font-size: clamp(1.7rem, 4vw, 2.4rem); margin-bottom: 48px; }
+.section--dark .section__label { color: var(--gold); }
+
+/* ===== 회사 소개 ===== */
+.about { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; }
+.about__text p:last-child { color: var(--muted); font-size: 1.05rem; }
+.about .section__title { margin-bottom: 24px; }
+
+.info-table { background: #fff; border-radius: var(--radius); padding: 12px 28px; box-shadow: 0 8px 30px rgba(43,36,32,.06); }
+.info-table div { display: flex; padding: 16px 0; border-bottom: 1px solid var(--line); }
+.info-table div:last-child { border-bottom: 0; }
+.info-table dt { width: 100px; flex-shrink: 0; color: var(--muted); }
+.info-table dd { font-weight: 500; }
+
+/* ===== 카테고리 ===== */
+.categories { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+.category {
+  background: #fff; border-radius: var(--radius); padding: 32px 28px;
+  transition: transform .25s, box-shadow .25s;
+}
+.category:hover { transform: translateY(-6px); box-shadow: 0 14px 30px rgba(43,36,32,.08); }
+.category__icon { font-size: 2.4rem; display: block; margin-bottom: 12px; }
+.category h3 { font-size: 1.2rem; margin-bottom: 4px; }
+.category p { color: var(--muted); font-size: .95rem; }
+
+/* ===== 숫자 ===== */
+.stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; margin-bottom: 64px; }
+.stat { border-top: 2px solid rgba(250,245,238,.2); padding-top: 20px; }
+.stat__num { font-size: clamp(2rem, 4vw, 2.8rem); font-weight: 700; color: var(--gold); }
+.stat__unit { margin-left: 4px; font-size: 1.1rem; }
+.stat p { color: rgba(250,245,238,.7); font-size: .95rem; }
+
+.region h3 { font-size: 1.1rem; margin-bottom: 16px; }
+.region__bar { display: flex; height: 22px; border-radius: 999px; overflow: hidden; background: rgba(255,255,255,.08); }
+.region__seg { flex: 0 0 0; transition: flex-basis 1.2s ease; }
+.region.is-visible .region__seg { flex-basis: calc(var(--w) / 420 * 100%); }
+.region__seg--seoul, .dot--seoul { background: var(--clay); }
+.region__seg--gyeonggi, .dot--gyeonggi { background: var(--sage); }
+.region__seg--etc, .dot--etc { background: var(--gold); }
+.region__legend { display: flex; gap: 24px; margin-top: 14px; flex-wrap: wrap; font-size: .95rem; }
+.dot { display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: 8px; }
+
+/* ===== 이용 흐름 ===== */
+.flow { display: grid; grid-template-columns: repeat(6, 1fr); gap: 12px; counter-reset: step; }
+.flow__step {
+  position: relative; background: #fff; border: 1px solid var(--line); border-radius: var(--radius);
+  padding: 24px 12px; text-align: center; font-weight: 500;
+}
+.flow__step span {
+  display: grid; place-items: center; width: 36px; height: 36px; margin: 0 auto 10px;
+  border-radius: 50%; background: var(--clay); color: #fff; font-weight: 700;
+}
+.flow__step:not(:last-child)::after {
+  content: "→"; position: absolute; right: -11px; top: 50%; transform: translateY(-50%);
+  color: var(--clay); font-weight: 700; z-index: 1;
+}
+.flow__step:last-child { background: var(--clay); color: #fff; border-color: var(--clay); }
+.flow__step:last-child span { background: #fff; color: var(--clay); }
+
+/* ===== 목표 ===== */
+.goals { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+.goal { background: #fff; border-radius: var(--radius); padding: 32px 28px; border-top: 4px solid var(--clay); }
+.goal:nth-child(2) { border-color: var(--gold); }
+.goal:nth-child(3) { border-color: var(--sage); }
+.goal h3 { font-size: 1.15rem; margin-bottom: 8px; }
+.goal__metric { font-size: 1.8rem; font-weight: 700; color: var(--clay); margin-bottom: 12px; }
+.goal__metric em { font-style: normal; color: var(--muted); }
+.goal p:last-child { color: var(--muted); font-size: .95rem; }
+
+/* ===== 타임라인 ===== */
+.timeline { border-left: 2px solid var(--line); margin-left: 8px; }
+.timeline li { position: relative; display: grid; grid-template-columns: 140px 1fr; gap: 24px; padding: 0 0 40px 32px; }
+.timeline li:last-child { padding-bottom: 0; }
+.timeline li::before {
+  content: ""; position: absolute; left: -9px; top: 6px;
+  width: 16px; height: 16px; border-radius: 50%; background: var(--clay); border: 3px solid var(--cream);
+}
+.timeline time { color: var(--clay); font-weight: 700; }
+.timeline h3 { font-size: 1.15rem; margin-bottom: 4px; }
+.timeline p { color: var(--muted); }
+
+/* ===== 팀 ===== */
+.team { display: grid; grid-template-columns: repeat(6, 1fr); gap: 16px; }
+.team__item { background: #fff; border-radius: var(--radius); padding: 28px 12px; text-align: center; }
+.team__item strong { display: block; font-size: 2.2rem; color: var(--clay); line-height: 1.2; }
+.team__item span { color: var(--muted); font-weight: 500; }
+
+/* ===== 푸터 ===== */
+.footer { background: var(--ink); color: rgba(250,245,238,.75); padding: 48px 0; font-size: .9rem; }
+.footer .logo { margin-bottom: 8px; }
+.footer .logo span { color: rgba(250,245,238,.5); }
+.footer__note { margin-top: 16px; font-size: .8rem; color: rgba(250,245,238,.45); }
+
+/* ===== 맨 위로 버튼 ===== */
+.to-top {
+  position: fixed; right: 20px; bottom: 20px; width: 48px; height: 48px;
+  border: 0; border-radius: 50%; background: var(--clay); color: #fff; font-size: 1.2rem;
+  cursor: pointer; opacity: 0; pointer-events: none; transition: opacity .3s, transform .3s;
+  transform: translateY(10px);
+}
+.to-top.is-visible { opacity: 1; pointer-events: auto; transform: translateY(0); }
+
+/* ===== 스크롤 등장 효과 ===== */
+.reveal { opacity: 0; transform: translateY(24px); transition: opacity .7s ease, transform .7s ease; }
+.reveal.is-visible { opacity: 1; transform: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .reveal { opacity: 1; transform: none; transition: none; }
+}
+
+/* ===== 반응형 ===== */
+@media (max-width: 960px) {
+  .about { grid-template-columns: 1fr; gap: 32px; }
+  .categories, .goals { grid-template-columns: repeat(2, 1fr); }
+  .stats { grid-template-columns: repeat(2, 1fr); }
+  .flow { grid-template-columns: repeat(3, 1fr); }
+  .flow__step::after { display: none; }
+  .team { grid-template-columns: repeat(3, 1fr); }
+}
+
+@media (max-width: 768px) {
+  .nav-toggle { display: block; }
+  .nav {
+    position: absolute; top: var(--header-h); left: 0; right: 0;
+    flex-direction: column; gap: 0; background: var(--cream);
+    border-bottom: 1px solid var(--line);
+    max-height: 0; overflow: hidden; transition: max-height .35s ease;
+  }
+  .nav.is-open { max-height: 420px; }
+  .nav a { padding: 14px 16px; border-top: 1px solid var(--line); }
+  .nav a::after { display: none; }
+  .section { padding: 80px 0; }
+}
+
+@media (max-width: 560px) {
+  .categories, .goals { grid-template-columns: 1fr; }
+  .flow { grid-template-columns: repeat(2, 1fr); }
+  .team { grid-template-columns: repeat(2, 1fr); }
+  .timeline li { grid-template-columns: 1fr; gap: 4px; }
+  .hero__desc br { display: none; }
+}
