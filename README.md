@@ -1,8 +1,8 @@
 # 깃허브 사용 첫번째 
 
-git init 
+git init  # 한번만
 
-git add README.md  #한번만
+git add README.md  
 
 git add .(모든파일)
 git commit -m "first commit"
